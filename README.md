@@ -4,7 +4,7 @@
 
 GetFiles is a small python program that saves the contents of a URL to
 a file or resumes the download if previously incomplete. It uses the
-[requests](http://www.python-requests.org/en/latest/) HTTP library.
+[Requests](http://www.python-requests.org/en/latest/) HTTP library.
 
 GetFiles works by making a request to the URL and saving its contents
 to a file. The secret sauce lies in checking up the file size in bytes
@@ -19,6 +19,7 @@ according to the Range header values.
   - Catch keyboard interrumption.
   - Use hash for file content check.
   - Download bar, percentage complete update, size complete.
+  - File dummy auto incremental value.
 
 ## Sources
 

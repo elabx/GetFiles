@@ -4,6 +4,7 @@ class GetFiles():
 
     def getFile(self, fromUrl, verbose=0):
         dlFile = fromUrl.split("/")[-1]
+        print str(dlFile)
         print "this is the download file " + dlFile
         if dlFile == "":
             dlFile = "file-dummy"
@@ -62,4 +63,4 @@ class GetFiles():
         return numBytes
 
 opener = GetFiles()
-opener.getFile("http://inmersys.com/site/",1)
+opener.getFile("http://speedtest.newark.linode.com/100MB-newark.bin",1)
