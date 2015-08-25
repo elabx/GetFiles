@@ -1,17 +1,23 @@
-import  os, sys, requests
+import  os, sys, requests, argparse
 
 class GetFiles():
 
-    def getFile(self, dlFile, fromUrl, verbose=0):
+    def getFile(self, fromUrl, verbose=0):
+        dlFile = fromUrl.split("/")[-1]
+        print "this is the download file " + dlFile
+        if dlFile == "":
+            dlFile = "file-dummy"
+        print "corrected download file " + dlFile
         head = requests.head(fromUrl)
+       
         loop = 1
         existSize = 0
         overwrite_confirmed = False
         custom_header = {}
         webSize = int(head.headers['content-length'])
         if os.path.exists(dlFile):
-            existsSize = os.path.getsize(dlFile)
-            if (existsSize < webSize):
+            existSize = os.path.getsize(dlFile)
+            if (existSize < webSize):
                 print "The file named %s already exists in this directory and seems to be incomplete. Do you want to continue downloading?" % (dlFile)
             else:
                 print "The file named %s already exists in this directory. Do you want to overwrite it?" % (dlFile)
@@ -30,8 +36,9 @@ class GetFiles():
         else:
             if (overwrite_confirmed):
                 os.remove(outputFile)
-                outputFile = open(dlFile,"wb")
+        outputFile = open(dlFile,"wb")
         response = requests.get(fromUrl, headers=custom_header, stream=True)
+        #print "---->the output file" + outputFile
         if verbose:
             for k, v in response.headers.items():
                 print k,"=", v
@@ -55,4 +62,4 @@ class GetFiles():
         return numBytes
 
 opener = GetFiles()
-opener.getFile("100MB-newark.bin","http://speedtest.newark.linode.com/100MB-newark.bin",1)
+opener.getFile("http://inmersys.com/site/",1)

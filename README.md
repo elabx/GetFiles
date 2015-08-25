@@ -9,7 +9,7 @@ a file or resumes the download if previously incomplete. It uses the
 GetFiles works by making a request to the URL and saving its contents
 to a file. The secret sauce lies in checking up the file size in bytes
 in a HEAD request, to later compare it to the current file size on
-disk (if existent). If file already exists, a Range header is sent
+disk (if existent). If file already exists on path, a Range header is sent
 along the request and the reponse object's content returned is streamed
 according to the Range header values.
 
@@ -18,7 +18,7 @@ according to the Range header values.
   - HTTP Error handling.
   - Catch keyboard interrumption.
   - Use hash for file content check.
-  - Download bar or percentage complete update
+  - Download bar, percentage complete update, size complete.
 
 ## Sources
 
