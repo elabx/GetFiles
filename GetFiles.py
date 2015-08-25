@@ -4,7 +4,7 @@ class GetFiles():
 
     def getFile(self, dlFile, fromUrl, verbose=0):
         head = requests.head(fromUrl)
-        print head.headers
+        #print head.headers
         #req = urllib2.Request(fromUrl)
         #header_request = req.get_method = lambda : 'HEAD'
         #header_response = urllib2.urlopen(header_request)
@@ -13,9 +13,14 @@ class GetFiles():
         overwrite_confirmed = False
         ##myUrlclass = GetFiles(  )
         custom_header = {}
+        webSize = int(head.headers['content-length'])
         if os.path.exists(dlFile):
-            #print "The file named %s already exists in this directory. Do you want to overwrite?" % (dlFile)
-            #print "Type 'yes' to continue or type 'no' to cancel"
+            existsSize = os.path.getsize(dlFile)
+            if (existsSize < webSize):
+                print "The file named %s already exists in this directory and seems to be incomplete. Do you want to continue downloading?" % (dlFile)
+            else:
+                print "The file named %s already exists in this directory. Do you want to overwrite it?" % (dlFile)
+            print "Type 'yes' to continue or type 'no' to cancel"
             while(overwrite_confirmed == False):
                 answer = raw_input('-->')
                 if answer == "yes":
@@ -26,7 +31,6 @@ class GetFiles():
                     print "Please write a correct answer."
                     continue
             outputFile = open(dlFile,"ab")
-            existSize = os.path.getsize(dlFile)
 
             # If the file exists, then download only the remainder
             #req.add_header("Range","bytes={}-{}".format([existSize, header_response.info()['Content-Length']]))
@@ -47,7 +51,7 @@ class GetFiles():
         #If we already have the whole file, there is no need to download it again
         numBytes = 0
         ##webSize = int(webPage.headers['Content-Length'])
-        webSize = int(head.headers['content-length'])
+        #webSize = int(head.headers['content-length'])
         if webSize == existSize:
             if verbose: print "File (%s) was already downloaded from URL (%s)"%(dlFile, fromUrl)
         else:
