@@ -1,4 +1,11 @@
-import  os, sys, requests, argparse
+import  os, sys, requests, argparse, urlparse
+
+parser = argparse.ArgumentParser()
+parser.add_argument('url')
+parser.add_argument('--v', action='store_true')
+args = parser.parse_args()
+
+
 
 class GetFiles():
 
@@ -18,6 +25,7 @@ class GetFiles():
         webSize = int(head.headers['content-length'])
         if os.path.exists(dlFile):
             existSize = os.path.getsize(dlFile)
+            print "###### WARNING ######"
             if (existSize < webSize):
                 print "The file named %s already exists in this directory and seems to be incomplete. Do you want to continue downloading?" % (dlFile)
             else:
@@ -44,8 +52,6 @@ class GetFiles():
             for k, v in response.headers.items():
                 print k,"=", v
         numBytes = 0
-    
-        
         if webSize == existSize:
             if verbose: print "File (%s) was already downloaded from URL (%s)"%(dlFile, fromUrl)
         else:
@@ -63,4 +69,6 @@ class GetFiles():
         return numBytes
 
 opener = GetFiles()
-opener.getFile("http://speedtest.newark.linode.com/100MB-newark.bin",1)
+if args.url == "":
+    print "Please enter a valid URL"
+opener.getFile(args.url,args.v)
