@@ -1,5 +1,27 @@
 # GetFiles
 
+##Usage
+
+Download the GetFiles.py file to any directory on you rcomputer. On
+the terminal navigate to the downloaded file location and type the following:
+
+```
+python GetFiles.py url --v
+```
+
+Arguments:
+
+`url`: The url you want to download. Must inlcude `http://`.
+
+`--v`: Verbose. Prints the headers of the response, how many bytes are
+left for download and total bytes transfered when finished.
+
+###Example
+
+```
+python GetFiles.py http://google.com --v
+```
+
 ## Description
 
 GetFiles is a small python program that saves the contents of a URL to
