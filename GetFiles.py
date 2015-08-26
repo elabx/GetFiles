@@ -5,8 +5,6 @@ parser.add_argument('url')
 parser.add_argument('--v', action='store_true')
 args = parser.parse_args()
 
-
-
 class GetFiles():
 
     def getFile(self, fromUrl, verbose=0):
@@ -47,7 +45,6 @@ class GetFiles():
                 os.remove(outputFile)
         outputFile = open(dlFile,"wb")
         response = requests.get(fromUrl, headers=custom_header, stream=True)
-        #print "---->the output file" + outputFile
         if verbose:
             for k, v in response.headers.items():
                 print k,"=", v
